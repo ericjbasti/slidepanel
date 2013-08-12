@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="jquery.ejb.slidepanel.v1.5.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#slideShow1").slidepanel();
+		$("#slideShow2").slidepanel({slideButtons:'#panelButtons',start:2});
+		$("#alphaPanel").slidepanel({pause:2,trans:'slide'});
+		$("#alphaPanel2").slidepanel({pause:1,trans:'slide',grouped:false});
+	});
+
+
+function Gizmo(id){
+	this.id=id;
+}
+
+Gizmo.prototype.toString=function(){
+	return "gizmo "+this.id;
+};
+
+function Hoozit(id){
+	this.id=id;
+};
+
+Hoozit.prototype=new Gizmo();
+Hoozit.prototype.test=function(id){
+	return this.id===id;
+};
+
+
+
+
+
+</script>
+<style type="text/css">
+	body{
+		font-family:Georgia;
+		font-size:12px;
+	}
+	code{
+		color:#555;
+	}
+	#slideShow1,#slideShow2{
+		height:480px;
+		width:640px;
+		overflow:hidden;
+		background:#000;
+	}
+	
+	#panelButtons{
+		background:red;
+		text-align:center;
+	}
+	#alphaPanel, #alphaPanel2{height:60px;width:200px;font-size:36px;}
+	
+	ul{
+		margin:0;
+		padding:0;
+		list-style-type:none;
+	}
+	ul li{
+		padding:0px;
+	}
+	.button{
+		height:15px;
+		width:15px;
+		background:url('imgs/button.png');
+		margin:2px;
+		display:inline-block;
+		zoom:1;
+		.display:inline;
+	}
+	.selected{
+		background:url('imgs/button_selected.png');
+	}
+	.clearboth{
+		clear:both;
+	}
+	
+</style>
+</head>
+<body>
+<p>
+<b>jquery.ejb.slidepanel.v1.5.js</b>
+</p>
+<p>
+Avalible options (with default settings):<br>
+<code>
+pause: 5, // this is the time the slide waits before it loads the next slide, decimals are permited.<br>
+start: 0, // this sets the starting slide<br>
+autoPlay:true, // tells the slide if it should automaticly progress the slides<br>
+loop:true, // when we reach the last slide should we start over?<br>
+playBtn:null, // pass in the class or id of the DOM object/objects you want to control the play status of this slidepanel<br>
+pauseBtn:null, // pass in the class or id of the DOM object/objects you want to control the pause status of this slidepanel<br>
+nextBtn:null, // pass in the class or id of the DOM object/objects you want to control the loading of the next slide<br>
+prevBtn:null, // pass in the class or id of the DOM object/objects you want to control the loading of the previous slide<br>
+slideButtons:null, // pass in the class or id of the DOM object/objects you want to recieve a series of divs that control loading individual slides<br>
+slideButtonsAutoCreate:true, // should we be looking for anything to populate with slideButtons?<br>
+slideButtonsClass:"button", // the class used to show a slideButton<br>
+slideButtonsSelectedClass:"selected", // the class used to show a slideButton is active<br>
+endOfLoopClass:"endOfLoop", // the class used to show the end of a loop (added to next and previous buttons if looping is disabled and your at the start or end of the list)<br>
+trans:'fade', // what type of transition should i use 'fade' or 'slide'<br>
+transSpeed:500, // how fast the transition takes place<br>
+grouped:true, // if im acting on a slide transition, should I fit as many into the visible are as possible?<br>
+perfectFit:true, // sometimes the 'slide' transition panel has an odd size, should I always make it a perfect fit?<br>
+externalAction:function(){} // an action that fires after a slide loads passes back the index of the slide loaded<br>
+</code>
+</p>
+<div>
+<h2>Sample 1: the most basic</h2>
+<code>JQuery code: $("#slideShow1").slidepanel();<br>
+CSS code: #slideShow1{height:500px;}
+</code>
+<ul id="slideShow1">
+	<li><img src="imgs/Earth-Jupiter-Small.jpg"/></li>
+	<li><img src="imgs/hubble1.jpg"/></li>
+	<li><img src="imgs/marsdeimos.jpg"/></li>
+</ul>
+<h2>Sample 2: now with slideButtons</h2>
+<code>JQuery code: $("#slideShow2").slidepanel({slideButtons:'#panelButtons'});<br>
+CSS code: #slideShow2{height:500px;}<br>
+.button{height:15px;width:15px;background:url('imgs/button.png');margin:2px;float:left;}<br>
+.selected{background:url('imgs/button_selected.png');}<br>
+.clearboth{clear:both;}<br>
+HTML code: &lt div id='panelButtons'&gt&lt/div&gt&lt div class='clearboth'&gt&lt/div&gt
+</code>
+<ul id="slideShow2">
+	<li><img src="imgs/Earth-Jupiter-Small.jpg"/></li>
+	<li><img src="imgs/hubble1.jpg"/></li>
+	<li><img src="imgs/marsdeimos.jpg"/></li>
+</ul>
+</div>
+<div id='panelButtons'></div><div class='clearboth'></div>
+
+<h3>Sample 3 : showing off</h3>
+this example uses irregular sized panels, and calculates which panel to slide to next. It also makes sure that the slides finish with a perfect fit.<br>
+<code>
+JQuery code: $("#alphaPanel").slidepanel({pause:2,trans:'slide'});<br>
+CSS code: #alphaPanel{height:20px;width:200px}</code>
+<ul id='alphaPanel'>
+		<li>A</li>
+		<li>B</li>
+		<li>C</li>
+		<li>D</li>
+		<li>E</li>
+		<li>F</li>
+		<li>G</li>
+		<li>H</li>
+		<li>I</li>
+		<li>J</li>
+		<li>K</li>
+		<li>L</li>
+		<li>M</li>
+		<li>N</li>
+		<li>O</li>
+		<li>P</li>
+		<li>Q</li>
+		<li>R</li>
+		<li>S</li>
+		<li>T</li>
+		<li>U</li>
+		<li>V</li>
+		<li>W</li>
+		<li>X</li>
+		<li>Y</li>
+		<li>Z</li>
+</ul>
+
+<h3>Sample 4 : one at a time</h3>
+<code>
+JQuery code: $("#alphaPanel2").slidepanel({pause:1,trans:'slide',grouped:false});<br>
+CSS code: #alphaPanel{height:20px;width:200px}</code>
+<ul id='alphaPanel2'>
+		<li>A</li>
+		<li>B</li>
+		<li>C</li>
+		<li>D</li>
+		<li>E</li>
+		<li>F</li>
+		<li>G</li>
+		<li>H</li>
+		<li>I</li>
+		<li>J</li>
+		<li>K</li>
+		<li>L</li>
+		<li>M</li>
+		<li>N</li>
+		<li>O</li>
+		<li>P</li>
+		<li>Q</li>
+		<li>R</li>
+		<li>S</li>
+		<li>T</li>
+		<li>U</li>
+		<li>V</li>
+		<li>W</li>
+		<li>X</li>
+		<li>Y</li>
+		<li>Z</li>
+</ul>
+<div id='panelButtons2'></div><div class='clearboth'></div>
+</body>
+</html>
